@@ -53,7 +53,7 @@ class Agent():
 
                         if max_value < value:
                             max_value = value
-                            next_value_func[y][x] = value
+                            next_value_func[y][x] = round(value, 2)
 
         self.value_func = next_value_func
 
@@ -61,8 +61,9 @@ class Agent():
     def move(self):
         x, y = self.env.unit_coord
 
+        # TODO: max_value 설정에 대하여 고쳐야한다.
         max_value = -9999
-        max_value_list = []
+        max_value_list = [0, 0, 0, 0]
 
         # 움직이기 시작골인 지점이면 가만히
         if not self.env.unit_coord == self.env.goal_coord:
@@ -78,16 +79,20 @@ class Agent():
                 value = reward + self.discount_factor * next_value
 
                 if value == max_value:
-                    max_value_list.append(value)
+                    max_value_list[action] = value
                 elif value > max_value:
-                    max_value_list.clear()
-                    max_value_list.append(value)
+                    max_value_list = [0, 0, 0, 0]
+                    max_value_list[action] = value
                     max_value = value
 
-                indices = np.nonzero(max_value_list == max_value)[0] # array([max_index_list], dtype=int64)
-                action = pr.choice(indices)
+            max = np.amax(max_value_list)
+            indices = np.nonzero(max_value_list == max)[0] # array([max_index_list], dtype=int64)
 
-                self.env.unit_coord = self.env.step(self.env.unit_coord, action)
+            action = pr.choice(indices)
+            print(indices)
+            print(action)
+
+            self.env.unit_coord = self.env.step(self.env.unit_coord, action)
 
     def reset(self):
         # 가치함수 테이블
