@@ -8,7 +8,7 @@ if __name__ == "__main__":
     agent = Agent(env)
     graphic = GraphicUtility('Monte Carlo Prediction', env)
 
-    TARGET_FPS = 10
+    TARGET_FPS = 30
     clock = pg.time.Clock()
 
     for episode in range(1000):
