@@ -8,8 +8,9 @@ class Agent:
         self.epsilon = 0.2         # 탐욕
         self.samples = []          # 한 에피소드 발자취 저장
 
-        # 가치함수
-        self.value_table = [[0.0] * env.grid_size for _ in range(env.grid_size)]
+        # Q 함수
+        self.value_table = [[0.0, 0.0, 0.0, 0.0] * env.grid_size \
+                            for _ in range(env.grid_size)]
 
         # 환경 정보
         self.grid_size = env.grid_size

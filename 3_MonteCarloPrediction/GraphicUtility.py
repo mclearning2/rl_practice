@@ -78,12 +78,11 @@ class GraphicUtility():
                                  self.grid_pixel))
 
             for (x, y), _ in agent.samples:
-                print(x, y)
+
                 pg.draw.rect(self.screen, (200, 200, 200),
                              pg.Rect(x * self.grid_pixel, y * self.grid_pixel,
                                      self.grid_pixel,
                                      self.grid_pixel))
-                print(x * self.grid_pixel, y * self.grid_pixel)
 
         # 라인 그리기
         for n in range(self.grid_size):
