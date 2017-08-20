@@ -72,6 +72,10 @@ class GraphicUtility():
                 self._draw_value_func(self.agent.value_func[y][x], x, y)
                 self._draw_policy(self.agent.policy[y][x], x, y)
 
+        for obstacle in self.agent.env.obstacle_coord:
+            self._draw_reward(obstacle)
+
+        self._draw_reward(self.agent.env.goal_coord)
 
         pg.display.flip()
 
@@ -123,6 +127,20 @@ class GraphicUtility():
 
             if not text == "0.0":
                 self.screen.blit(text_img, (draw_x, draw_y))
+
+    def _draw_reward(self, coord):
+        text = str(self.agent.env.get_reward(coord))
+        font_size = int(self.grid_pixel * 0.15)
+        font = pg.font.SysFont('Helvetica', font_size)
+        text_img = font.render(text, False, (0, 0, 250))
+        width, height = font.size(text)
+
+        x, y = coord
+
+        draw_x = x * self.grid_pixel + (self.grid_pixel - width) - 10
+        draw_y = y * self.grid_pixel + (self.grid_pixel - height)
+
+        self.screen.blit(text_img, (draw_x, draw_y))
 
     def main_loop(self):
         while True:
