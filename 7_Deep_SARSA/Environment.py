@@ -41,12 +41,13 @@ class Environment():
 
             x += self.obstacle_dir[index]
 
-            if self.obstacle_dir[index] == 0:
+
+            if x == 0:
                 self.obstacle_dir[index] = 1
-            elif self.obstacle_dir[index] == self.grid_size - 1:
+            elif x == self.grid_size - 1:
                 self.obstacle_dir[index] = -1
 
-            self.obstacle_dir[index] = x, y
+            self.coord['obstacle'][index] = x, y
 
     def step(self, action):
 
@@ -71,7 +72,3 @@ class Environment():
         self.coord['unit'] = self.unit_start_point
 
         return self.unit_start_point
-
-if __name__ == '__main__':
-    env = Environment()
-
