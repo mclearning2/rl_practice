@@ -1,11 +1,11 @@
 class Environment():
-    def __init__(self, grid_size=5, unit_coord=[0, 0], goal_coord=[2,2], obstacle_coord=[[1,2], [2,1], [0,3]]):
+    def __init__(self, grid_size=5, unit_coord=[0, 0], goal_coord=[4,4], obstacle_coord=[[1,2], [2,1], [0,3]]):
         # 그리드 크기
         self.grid_size = grid_size
 
         # 유닛 초기 지점 좌표
         self.coord = {'unit': unit_coord,
-                      'coal': goal_coord,
+                      'goal': goal_coord,
                       'obstacle': obstacle_coord}
 
         self.unit_start_point = unit_coord
@@ -45,7 +45,7 @@ class Environment():
                 self.obstacle_dir[index] = 1
             elif self.obstacle_dir[index] == self.grid_size - 1:
                 self.obstacle_dir[index] = -1
-            
+
             self.obstacle_dir[index] = x, y
 
     def step(self, action):
