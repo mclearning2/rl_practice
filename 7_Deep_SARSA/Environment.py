@@ -71,4 +71,11 @@ class Environment():
 
         self.coord['unit'] = self.unit_start_point
 
-        return self.unit_start_point
+        state = []
+        state.append(self.coord['unit'])
+        state.append(self.coord['goal'])
+
+        for coord in self.coord['obstacle']:
+            state.append(coord)
+
+        return state
