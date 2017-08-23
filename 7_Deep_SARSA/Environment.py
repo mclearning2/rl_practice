@@ -11,7 +11,7 @@ class Environment():
         self.unit_start_point = unit_coord
 
         self.obstacle_dir = []
-        for i in range(len(self.coord['obstacle'])):
+        for _ in range(len(self.coord['obstacle'])):
             self.obstacle_dir.append(1)
 
         # 가능한 행동
@@ -36,7 +36,17 @@ class Environment():
         return reward, done
 
     def move_obstacle(self):
-        pass
+        for index in range(len(self.coord['obstacle'])):
+            x, y = self.coord['obstacle'][index]
+
+            x += self.obstacle_dir[index]
+
+            if self.obstacle_dir[index] == 0:
+                self.obstacle_dir[index] = 1
+            elif self.obstacle_dir[index] == self.grid_size - 1:
+                self.obstacle_dir[index] = -1
+            
+            self.obstacle_dir[index] = x, y
 
     def step(self, action):
 
