@@ -76,11 +76,13 @@ class GraphicUtility():
 
         pg.display.flip()
 
-    def check_event(self):
+    def check_event(self, graphic_on):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_i:
-                    pass
+                    graphic_on = ~graphic_on
+
+        return graphic_on

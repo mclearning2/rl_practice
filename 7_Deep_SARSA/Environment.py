@@ -1,3 +1,5 @@
+import numpy as np
+
 class Environment():
     def __init__(self, grid_size=5, unit_coord=[0, 0], goal_coord=[4,4], obstacle_coord=[[1,2], [2,1], [0,3]]):
         # 그리드 크기
@@ -30,17 +32,29 @@ class Environment():
                 reward = -1
 
         if unit_coord == self.coord['goal']:
-            reward = 1
+            reward = 100
             done = True
 
         return reward, done
+
+    def _coord_to_state(self):
+        state = []
+        state.append(self.coord['unit'])
+        state.append(self.coord['goal'])
+
+        for coord in self.coord['obstacle']:
+            state.append(coord)
+
+
+        state = np.reshape(state, [1, -1])
+
+        return state
 
     def move_obstacle(self):
         for index in range(len(self.coord['obstacle'])):
             x, y = self.coord['obstacle'][index]
 
             x += self.obstacle_dir[index]
-
 
             if x == 0:
                 self.obstacle_dir[index] = 1
@@ -59,10 +73,9 @@ class Environment():
         elif action == 'RIGHT':       x += 1
 
         if not self._check_boundary(x, y):
-            next_state = x, y
+            self.coord['unit'] = x, y
 
-        self.coord['unit'] = next_state
-
+        next_state = self._coord_to_state()
         reward, done = self._check_reward_and_done([x, y])
 
         return next_state, reward, done
@@ -71,11 +84,6 @@ class Environment():
 
         self.coord['unit'] = self.unit_start_point
 
-        state = []
-        state.append(self.coord['unit'])
-        state.append(self.coord['goal'])
-
-        for coord in self.coord['obstacle']:
-            state.append(coord)
+        state = self._coord_to_state()
 
         return state
