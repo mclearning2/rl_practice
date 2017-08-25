@@ -2,7 +2,7 @@ import pygame as pg
 import sys
 
 class GraphicUtility():
-    def __init__(self, title, env, grid_pixel=150, img_rate=0.5):
+    def __init__(self, title, env, grid_pixel=100, img_rate=0.5):
         # 한 칸당 픽셀 수와 개수
         self.grid_pixel = grid_pixel
         self.grid_size = env.grid_size

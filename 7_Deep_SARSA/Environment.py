@@ -18,6 +18,9 @@ class Environment():
 
         # 가능한 행동
         self.possible_actions = ['UP', 'DOWN', 'LEFT', 'RIGHT']
+        
+        # 일정 시간마다 함정이 움직이게 하기 위한 카운터
+        self.counter = 0
 
     def _check_boundary(self, x, y):
         return x < 0 or x >= self.grid_size or \
@@ -32,39 +35,48 @@ class Environment():
                 reward = -1
 
         if unit_coord == self.coord['goal']:
-            reward = 100
+            reward = 50
             done = True
 
         return reward, done
 
     def _coord_to_state(self):
         state = []
-        state.append(self.coord['unit'])
-        state.append(self.coord['goal'])
+        unit_x, unit_y = self.coord['unit']
+        goal_x, goal_y = self.coord['goal']
+        state.append(goal_x - unit_x)
+        state.append(goal_y - unit_y)
+        state.append(1)
 
-        for coord in self.coord['obstacle']:
-            state.append(coord)
-
+        for index, coord in enumerate(self.coord['obstacle']):
+            obst_x, obst_y = coord
+            state.append(obst_x - unit_x)
+            state.append(obst_y - unit_y)
+            state.append(-1)
+            state.append(self.obstacle_dir[index])
 
         state = np.reshape(state, [1, -1])
 
         return state
 
     def move_obstacle(self):
-        for index in range(len(self.coord['obstacle'])):
-            x, y = self.coord['obstacle'][index]
+        self.counter += 1
+        
+        # 유닛 움직임 속도의 반
+        if self.counter % 2 == 0:
+            for index in range(len(self.coord['obstacle'])):
+                x, y = self.coord['obstacle'][index]
+    
+                x += self.obstacle_dir[index]
+    
+                if x == 0:
+                    self.obstacle_dir[index] = 1
+                elif x == self.grid_size - 1:
+                    self.obstacle_dir[index] = -1
+    
+                self.coord['obstacle'][index] = x, y
 
-            x += self.obstacle_dir[index]
-
-            if x == 0:
-                self.obstacle_dir[index] = 1
-            elif x == self.grid_size - 1:
-                self.obstacle_dir[index] = -1
-
-            self.coord['obstacle'][index] = x, y
-
-    def step(self, action):
-
+    def step(self, action):        
         x, y = self.coord['unit']
 
         if action == 'UP':            y -= 1

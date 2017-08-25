@@ -2,11 +2,13 @@ import tensorflow as tf
 import numpy as np
 import random
 
+
+
 flags = tf.app.flags
 
-flags.n_input = 10
-flags.n_hidden1 = 30
-flags.n_hidden2 = 30
+flags.n_input = 15
+flags.n_hidden1 = 50
+flags.n_hidden2 = 50
 flags.n_output = 4
 
 flags.learning_rate = 0.001
@@ -32,14 +34,14 @@ class Agent():
     def inference(self):
 
         weights = {
-            'h1': tf.Variable(tf.truncated_normal([flags.n_input, flags.n_hidden1])),
-            'h2': tf.Variable(tf.truncated_normal([flags.n_hidden1, flags.n_hidden2])),
-            'o': tf.Variable(tf.truncated_normal([flags.n_hidden2, flags.n_output]))
+            'h1': tf.Variable(tf.random_normal([flags.n_input, flags.n_hidden1])),
+            'h2': tf.Variable(tf.random_normal([flags.n_hidden1, flags.n_hidden2])),
+            'o': tf.Variable(tf.random_normal([flags.n_hidden2, flags.n_output]))
         }
         biases = {
-            'h1': tf.Variable(tf.truncated_normal([flags.n_hidden1])),
-            'h2': tf.Variable(tf.truncated_normal([flags.n_hidden2])),
-            'o': tf.Variable(tf.truncated_normal([flags.n_output]))
+            'h1': tf.Variable(tf.random_normal([flags.n_hidden1])),
+            'h2': tf.Variable(tf.random_normal([flags.n_hidden2])),
+            'o': tf.Variable(tf.random_normal([flags.n_output]))
         }
 
         h_layer1 = tf.add(tf.matmul(self.x, weights['h1']), biases['h1'])
@@ -66,19 +68,20 @@ class Agent():
             max_q_index = np.argmax(q_value, axis=1)[0]
             return self.possible_actions[max_q_index]
 
-    def train_model(self, state, action, reward, next_state, done):
+    def train_model(self, state, action, reward, next_state, next_action, done):
         if flags.epsilon_min < self.epsilon:
             self.epsilon *= flags.epsilon_decay
-        print(state)
+
         target = self.sess.run(self.pred, feed_dict={self.x:state})
         next_q = self.sess.run(self.pred, feed_dict={self.x:next_state})
 
         action_index = self.possible_actions.index(action)
+        next_action_index = self.possible_actions.index(next_action)
 
         if done:
             target[0][action_index] = reward
         else:
             target[0][action_index] = reward + \
-                                      flags.discount_factor * np.argmax(next_q,axis=1)[0]
+                                      flags.discount_factor * next_q[0][next_action_index]
 
         self.sess.run(self.train, feed_dict={self.x: state, self.target: target})
