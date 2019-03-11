@@ -37,4 +37,7 @@ python main.py
 2. [가치 이터레이션(Value Iteration)](https://github.com/KiMC2/Reinforcement_Example/tree/master/2_ValueIteration)
 3. [몬테 카를로 예측(Monte Carlo Prediction)](https://github.com/KiMC2/Reinforcement_Example/tree/master/3_MonteCarloPrediction)
 4. [시간차 예측(Temporal Diffrenece Learning)](https://github.com/KiMC2/Reinforcement_Example/tree/master/4_TemporalDifferenceLearning)
-5. [살사(SARSA)]()
+5. [살사(SARSA)](https://github.com/mclearning2/rl_practice/tree/master/5_SARSA)
+6. [큐러닝(Q-Learning)](https://github.com/mclearning2/rl_practice/tree/master/6_Q-Learning)
+7. [딥살사(Deep_SARSA)](https://github.com/mclearning2/rl_practice/tree/master/7_Deep_SARSA)
+8. [DQN](https://github.com/mclearning2/rl_practice/tree/master/8_DQN)
