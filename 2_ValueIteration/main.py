@@ -12,5 +12,5 @@ if __name__ == "__main__":
 
     env = Environment()
     agent = Agent(env)
-    util = GraphicUtility('Policy Iteration', agent)
+    util = GraphicUtility('Value Iteration', agent)
     util.main_loop()

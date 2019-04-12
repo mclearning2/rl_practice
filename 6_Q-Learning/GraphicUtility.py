@@ -2,7 +2,7 @@ import pygame as pg
 import sys
 
 class GraphicUtility():
-    def __init__(self, title, env, grid_pixel=150, img_rate=0.5):
+    def __init__(self, title, env, grid_pixel=100, img_rate=0.5):
         # 한 칸당 픽셀 수와 개수
         self.grid_pixel = grid_pixel
         self.grid_size = env.grid_size
@@ -52,7 +52,7 @@ class GraphicUtility():
     def _draw_Q(self, Q_table, x, y):
         for action, Q in enumerate(Q_table):
             text = str(round(Q, 3))
-            font_size = int(self.grid_pixel * 0.11)
+            font_size = int(self.grid_pixel * 0.13)
             font = pg.font.SysFont('Helvetica', font_size)
             text_img = font.render(text, False, (0, 0, 0))
             width, height = font.size(text)

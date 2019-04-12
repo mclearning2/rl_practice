@@ -2,7 +2,7 @@ import pygame as pg
 import sys
 
 class GraphicUtility():
-    def __init__(self, title, agent, grid_pixel=150, img_rate=0.5):
+    def __init__(self, title, agent, grid_pixel=100, img_rate=0.5):
         self.agent = agent
 
         # 한 칸의 pixel 크기
@@ -85,7 +85,7 @@ class GraphicUtility():
 
     def _draw_value_func(self, value_func, x, y):
         text = str(value_func)                              # 문자로 변환
-        font_size = int(self.grid_pixel * 0.11)             # 칸의 크기에 맞게 문자 변환
+        font_size = int(self.grid_pixel * 0.13)             # 칸의 크기에 맞게 문자 변환
         font = pg.font.SysFont('Helvetica', font_size)      # 폰트 설정
         text_img = font.render(text, False, (0,0,0))        # 이미지로 변환
         width, height = font.size(text)                     # 이미지 크기
@@ -98,7 +98,7 @@ class GraphicUtility():
     def _draw_policy(self, policy, x, y):
         for action in self.agent.env.possible_actions:
             text = str(policy[action])
-            font_size = int(self.grid_pixel * 0.11)
+            font_size = int(self.grid_pixel * 0.13)
             font = pg.font.SysFont('Helvetica', font_size)
             text_img = font.render(text, False, (0, 0, 0))
             width, height = font.size(text)

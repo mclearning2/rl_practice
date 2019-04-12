@@ -1,7 +1,5 @@
 # 강화학습 정리, 실습 코드
 
-올 한해 가장 맘에 드는 이 책! 산 것을 절대 후회하지 않습니다! 강화학습에 발목 붙잡혀 공부하기 힘들어하던 제게 한줄기 빛같은 존재!! 감사합니다! 깊은 존경을 표합니다. 어찌되었건 완독과 완벽한 이해, 그리고 코드로 짜보겠다는 목표로 8월 말까지 해볼 생각입니다.
-
 ![| center](./book.png)
 
 >**이 코드는 [파이썬과 케라스로 배우는 강화학습 책 코드](https://github.com/rlcode/reinforcement-learning-kr)를 기반으로 만들어 졌습니다.**
@@ -39,5 +37,3 @@ python main.py
 4. [시간차 예측(Temporal Diffrenece Learning)](https://github.com/KiMC2/Reinforcement_Example/tree/master/4_TemporalDifferenceLearning)
 5. [살사(SARSA)](https://github.com/mclearning2/rl_practice/tree/master/5_SARSA)
 6. [큐러닝(Q-Learning)](https://github.com/mclearning2/rl_practice/tree/master/6_Q-Learning)
-7. [딥살사(Deep_SARSA)](https://github.com/mclearning2/rl_practice/tree/master/7_Deep_SARSA)
-8. [DQN](https://github.com/mclearning2/rl_practice/tree/master/8_DQN)
